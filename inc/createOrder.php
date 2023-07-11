@@ -83,10 +83,13 @@ function createOrder($order_id)
         $order_url = str_replace('{trading-point-id}', $trading_point_id, $api_order_url);
         $create = $response->getResponse($data_order, $api_url.$order_url, $token);
 
-        $data_log = json_encode($create);
-        $register_log = fopen($_SERVER['DOCUMENT_ROOT'].'/register_log.txt', 'a');
-        fwrite($register_log, $data_log . PHP_EOL);
-        fclose($register_log);
+        /*
+         * Save log for test
+         */
+        //$data_log = json_encode($create);
+        //$register_log = fopen($_SERVER['DOCUMENT_ROOT'].'/register_log.txt', 'a');
+        //fwrite($register_log, $data_log . PHP_EOL);
+        //fclose($register_log);
 
     }
 
