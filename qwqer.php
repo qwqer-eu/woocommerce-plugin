@@ -7,8 +7,6 @@
  * Author: QWQER
  * Author URI: https://qwqer.com/
  * License: GPLv2 or later
- * Domain Path: /lang
- * Text Domain: qwqerlocalize
  */
 
 defined('ABSPATH') || exit;
