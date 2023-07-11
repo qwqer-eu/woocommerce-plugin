@@ -166,7 +166,7 @@ class WC_Qwqer_Shipping_Method extends WC_Shipping_Method
 
         $clientOwnerAddress = $params;
         if (is_checkout()) {
-            if(isset($info_client['data']['address']) && $info_client['data']['coordinates']) {
+            if(isset($info_client['data']['address']) && isset($info_client['data']['coordinates'])) {
                 $clientOwnerAddress["address"] = $info_client['data']['address'];
                 $clientOwnerAddress["coordinates"] = $info_client['data']['coordinates'];
             }
