@@ -1,6 +1,6 @@
 <?php
 /*
- * Create order after payment
+ * QWQER: Create order after payment
  */
 defined('ABSPATH') || exit;
 
@@ -11,11 +11,9 @@ function createOrder($order_id)
     /*
      * static data
      */
-    $api_url = 'https://qwqer.hostcream.eu/api/';
+    $api_url = 'https://qwqer.lv/api/';
     $api_coordinates_url = 'v1/places/geocode';
     $api_order_url = "v1/clients/auth/trading-points/{trading-point-id}/delivery-orders";
-
-    $test = $response->arrayFields();
 
     $order = new WC_Order($order_id);
 
@@ -29,16 +27,48 @@ function createOrder($order_id)
     foreach ($order->get_items('shipping') as $item_id => $item) {
         $shipping_method_id = $item->get_method_id();
         $shipping_method_instance_id = $item->get_instance_id();
+        $shipping_method_title = $item->get_method_title();
     }
 
     $shipping_methods = WC()->shipping->get_shipping_method_class_names();
     $method_instance = new $shipping_methods['qwqer_shipping_method']( $shipping_method_instance_id );
 
     $token = $method_instance->get_option( 'qwqer_key' );
+    $shipping_title_scheduledDelivery = $method_instance->get_option( 'qwqer_title' );
+    $shipping_title_expressDelivery = $method_instance->get_option( 'qwqer_title_expressDelivery' );
+    $shipping_title_omnivaParcelTerminal = $method_instance->get_option( 'qwqer_title_omnivaParcelTerminal' );
     $trading_point_id = $method_instance->get_option( 'qwqer_id' );
     $shop_phone = $method_instance->get_option( 'qwqer_phone' );
     $shop_phone = str_replace('+', '', $shop_phone);
     $category = $method_instance->get_option( 'qwqer_category' );
+
+    $billing_terminal = WC()->session->get('billing_terminal');
+    $billing_terminal_id = WC()->session->get('billing_terminal_id');
+
+    /*
+     * Get terminal info
+     */
+    $get_terminals = $response->getTerminals($token);
+    foreach ($get_terminals['data']['omniva'] as $terminal) {
+        if ($billing_terminal_id == $terminal['id']) {
+            $name_terminal = $terminal['name'];
+            $coordinates_terminal = $terminal['coordinates'];
+        }
+    }
+    $name_terminal = isset($name_terminal) ? $name_terminal : null;
+    $coordinates_terminal = isset($coordinates_terminal) ? $coordinates_terminal : null;
+
+    if($shipping_method_title == $shipping_title_scheduledDelivery) {
+        $real_type = 'ScheduledDelivery';
+    }
+
+    if($shipping_method_title == $shipping_title_expressDelivery) {
+        $real_type = 'ExpressDelivery';
+    }
+
+    if($shipping_method_title == $shipping_title_omnivaParcelTerminal) {
+        $real_type = 'OmnivaParcelTerminal';
+    }
 
     if($shipping_method_id == 'qwqer_shipping_method') {
         /*
@@ -73,23 +103,42 @@ function createOrder($order_id)
 
         $clientOwnerAddress["name"] = $name;
         $clientOwnerAddress["phone"] = $phone;
-        $data_order = array(
-            'type' => 'Regular',
-            'category' => $category,
-            'real_type' => 'ScheduledDelivery',
-            'origin' => $storeOwnerAddress,
-            'destinations' => [$clientOwnerAddress],
-        );
+        if($shipping_method_title == $shipping_title_scheduledDelivery || $shipping_method_title == $shipping_title_expressDelivery) {
+            $data_order = array(
+                'type' => 'Regular',
+                'category' => $category,
+                'real_type' => $real_type,
+                'origin' => $storeOwnerAddress,
+                'destinations' => [$clientOwnerAddress],
+            );
+        }
+        if($shipping_method_title == $shipping_title_omnivaParcelTerminal) {
+            $data_info_terminal = [
+                "name" => $name,
+                "phone" => $phone,
+                "address" => $name_terminal,
+                "coordinates" => $coordinates_terminal,
+                "country" => 'LV',
+                "city" => 'Rīga',
+            ];
+
+            $data_order = array(
+                'type' => 'Regular',
+                'category' => $category,
+                'real_type' => $real_type,
+                'origin' => $storeOwnerAddress,
+                'destinations' => [$data_info_terminal],
+                'parcel_size' => 'L'
+            );
+
+            /*
+             * Save terminal for order
+             */
+            update_post_meta( $order_id, '_billing_terminal', sanitize_text_field($billing_terminal) );
+            update_post_meta( $order_id, '_billing_terminal_id', sanitize_text_field($billing_terminal_id) );
+        }
         $order_url = str_replace('{trading-point-id}', $trading_point_id, $api_order_url);
         $create = $response->getResponse($data_order, $api_url.$order_url, $token);
-
-        /*
-         * Save log for test
-         */
-        //$data_log = json_encode($create);
-        //$register_log = fopen($_SERVER['DOCUMENT_ROOT'].'/register_log.txt', 'a');
-        //fwrite($register_log, $data_log . PHP_EOL);
-        //fclose($register_log);
 
     }
 
@@ -105,7 +154,22 @@ function qwqerValidate($fields, $errors) {
     $cart = WC()->cart;
     if(in_array( 'qwqer_shipping_method', $chosen_shipping_methods )) {
         if($cart->get_shipping_total() == 0) {
-            $errors->add('validation', __('Delivery is not possible!', 'woocommerce'));
+            $errors->add('validation', __('Delivery is not possible!', 'qwqer'));
         }
     }
+}
+
+/*
+ * Required phone number
+ */
+add_filter( 'woocommerce_checkout_fields', 'required_billing_phone', 25 );
+
+function required_billing_phone( $fields )
+{
+
+    $fields[ 'billing' ][ 'billing_phone' ][ 'required' ] = true;
+    $fields[ 'shipping' ][ 'shipping_phone' ][ 'required' ] = true;
+
+    return $fields;
+
 }

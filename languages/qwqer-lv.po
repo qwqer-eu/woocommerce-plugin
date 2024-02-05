@@ -1,0 +1,152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: QWQER\n"
+"POT-Creation-Date: 2024-01-10 13:36+0200\n"
+"PO-Revision-Date: 2024-01-10 13:38+0200\n"
+"Last-Translator: \n"
+"Language-Team: Notfar\n"
+"Language: lv_LV\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==0 || (n%100>=11 && n%100<=19) ? 0 : "
+"n%10==1 && n%100!=11 ? 1 : 2);\n"
+"X-Generator: Poedit 3.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: .idea\n"
+"X-Poedit-SearchPathExcluded-1: languages\n"
+
+#: inc/OmnivaParcelTerminal.php:31
+msgid "Please select a terminal"
+msgstr "Lūdzu, izvēlieties punktu"
+
+#: inc/OmnivaParcelTerminal.php:47
+msgid "Terminal name"
+msgstr "Punkta nosaukums"
+
+#: inc/createOrder.php:106
+msgid "Delivery is not possible!"
+msgstr "Piegāde nav iespējama!"
+
+#: inc/settings.php:23 inc/settings.php:24
+msgid "QWQER Shipping Method"
+msgstr "QWQER Piegādes Metode"
+
+#: inc/settings.php:59 inc/settings.php:65 inc/settings.php:71
+msgid "Method Title"
+msgstr "Metodes nosaukums"
+
+#: inc/settings.php:61
+msgid "QWQER Scheduled Delivery"
+msgstr "QWQER vakara piegāde"
+
+#: inc/settings.php:62
+msgid "Scheduled Delivery"
+msgstr "Vakara piegāde"
+
+#: inc/settings.php:67
+msgid "QWQER Express Delivery"
+msgstr "QWQER Ekspress piegāde"
+
+#: inc/settings.php:68 inc/settings.php:106
+msgid "Express Delivery"
+msgstr "Ekspress piegāde"
+
+#: inc/settings.php:73 qwqer.php:228 qwqer.php:243 qwqer.php:263
+msgid "Omniva Parcel locker"
+msgstr "Omniva paku skapis"
+
+#: inc/settings.php:74
+msgid "Delivery to the parce locker (Omniva)"
+msgstr "Piegāde uz pakomātu (Omniva)"
+
+#: inc/settings.php:77
+msgid "Trading-Point ID"
+msgstr "Tirdzniecības Punkta ID"
+
+#: inc/settings.php:81
+msgid "API token"
+msgstr "API atslēga"
+
+#: inc/settings.php:85
+msgid "Shop phone number"
+msgstr "Veikala telefona numurs"
+
+#: inc/settings.php:89
+msgid "Select category"
+msgstr "Izvēlieties kategoriju"
+
+#: inc/settings.php:90
+msgid "Category to which your shop`s products belong"
+msgstr "Kategorija, kurā ietilpst jūsu veikala produkti"
+
+#: inc/settings.php:94
+msgid "Other"
+msgstr "Cits"
+
+#: inc/settings.php:95
+msgid "Flowers"
+msgstr "Ziedi"
+
+#: inc/settings.php:96
+msgid "Food"
+msgstr "Ēdiens"
+
+#: inc/settings.php:97
+msgid "Electronics"
+msgstr "Elektronika"
+
+#: inc/settings.php:98
+msgid "Cake"
+msgstr "Kūka"
+
+#: inc/settings.php:99
+msgid "Present"
+msgstr "Dāvana"
+
+#: inc/settings.php:100
+msgid "Clothes"
+msgstr "Apģērbs"
+
+#: inc/settings.php:101
+msgid "Document"
+msgstr "Dokuments"
+
+#: inc/settings.php:102
+msgid "Jewelry"
+msgstr "Rotaslietas"
+
+#: inc/settings.php:110
+msgid "Omniva Parcel Locker"
+msgstr "Omniva paku skapis"
+
+#: inc/settings.php:279 inc/settings.php:285
+msgid "One or more of the destinations is out of orgin`s delivery area!"
+msgstr "Viens vai vairāki galamērķi atrodas ārpus piegādes zonas!"
+
+#: inc/settings.php:321 inc/settings.php:326
+#, php-format
+msgid "%s. Please fill in the address and city field"
+msgstr "%s. Lūdzu, norādiet adresi un pilsētu"
+
+#: inc/settings.php:332
+#, php-format
+msgid "%s. Please select a parcel locker from the list"
+msgstr "%s. Lūdzu, izvēlieties paku skapi"
+
+#: qwqer.php:55
+msgid "Important! Install and activate the plugin \"Woocommerce\""
+msgstr "Svarbu! Įdiekite ir įjunkite įskiepį \"Woocommerce\""
+
+#: qwqer.php:63
+msgid "Important! Address and city fields in woocommerce settings are required"
+msgstr "Svarbu! Adreso ir miesto laukai woocommerce nustatymuose yra privalomi"
+
+#: qwqer.php:244
+msgid "Omniva Parcel locker ID"
+msgstr ""
+
+#~ msgid "QWQER Shipping"
+#~ msgstr "QWQER Piegāde"

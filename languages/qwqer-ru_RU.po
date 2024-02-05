@@ -1,0 +1,155 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: QWQER\n"
+"POT-Creation-Date: 2024-01-10 13:38+0200\n"
+"PO-Revision-Date: 2024-01-10 13:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: Notfar\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: .idea\n"
+
+#: inc/OmnivaParcelTerminal.php:31
+msgid "Please select a terminal"
+msgstr "Пожалуйста, выберите точку"
+
+#: inc/OmnivaParcelTerminal.php:47
+msgid "Terminal name"
+msgstr "Имя точки"
+
+#: inc/createOrder.php:106
+msgid "Delivery is not possible!"
+msgstr "Доставка невозможна!"
+
+#: inc/settings.php:23 inc/settings.php:24
+msgid "QWQER Shipping Method"
+msgstr "Способ доставки QWQER"
+
+#: inc/settings.php:59 inc/settings.php:65 inc/settings.php:71
+msgid "Method Title"
+msgstr "Название метода"
+
+#: inc/settings.php:61
+msgid "QWQER Scheduled Delivery"
+msgstr "QWQER вечерняя доставка"
+
+#: inc/settings.php:62
+msgid "Scheduled Delivery"
+msgstr "Вечерняя доставка"
+
+#: inc/settings.php:67
+msgid "QWQER Express Delivery"
+msgstr "QWQER Экспресс доставка"
+
+#: inc/settings.php:68 inc/settings.php:106
+msgid "Express Delivery"
+msgstr "Экспресс доставка"
+
+#: inc/settings.php:73 qwqer.php:228 qwqer.php:243 qwqer.php:263
+msgid "Omniva Parcel locker"
+msgstr "Покомат Omniva"
+
+#: inc/settings.php:74
+msgid "Delivery to the parce locker (Omniva)"
+msgstr "Доставка в пакомат (Омнива)"
+
+#: inc/settings.php:77
+msgid "Trading-Point ID"
+msgstr "Идентификатор торговой точки"
+
+#: inc/settings.php:81
+msgid "API token"
+msgstr "API-токен"
+
+#: inc/settings.php:85
+msgid "Shop phone number"
+msgstr "Номер телефона магазина"
+
+#: inc/settings.php:89
+msgid "Select category"
+msgstr "Выберите категорию"
+
+#: inc/settings.php:90
+msgid "Category to which your shop`s products belong"
+msgstr "Категория, к которой относятся товары вашего магазина"
+
+#: inc/settings.php:94
+msgid "Other"
+msgstr "Другое"
+
+#: inc/settings.php:95
+msgid "Flowers"
+msgstr "Цветы"
+
+#: inc/settings.php:96
+msgid "Food"
+msgstr "Продукты питания"
+
+#: inc/settings.php:97
+msgid "Electronics"
+msgstr "Электроника"
+
+#: inc/settings.php:98
+msgid "Cake"
+msgstr "Торты"
+
+#: inc/settings.php:99
+msgid "Present"
+msgstr "Презенты"
+
+#: inc/settings.php:100
+msgid "Clothes"
+msgstr "Одежда"
+
+#: inc/settings.php:101
+msgid "Document"
+msgstr "Документ"
+
+#: inc/settings.php:102
+msgid "Jewelry"
+msgstr "Ювелирные изделия"
+
+#: inc/settings.php:110
+msgid "Omniva Parcel Locker"
+msgstr "Покомат Omniva"
+
+#: inc/settings.php:279 inc/settings.php:285
+msgid "One or more of the destinations is out of orgin`s delivery area!"
+msgstr ""
+"Один или несколько пунктов назначения находятся за пределами зоны доставки "
+"отправления!"
+
+#: inc/settings.php:321 inc/settings.php:326
+#, php-format
+msgid "%s. Please fill in the address and city field"
+msgstr "%s. Пожалуйста, укажите адрес и город"
+
+#: inc/settings.php:332
+#, php-format
+msgid "%s. Please select a parcel locker from the list"
+msgstr "%s. Пожалуйста, выберите покомат"
+
+#: qwqer.php:55
+msgid "Important! Install and activate the plugin \"Woocommerce\""
+msgstr "Важно! Установите и активируйте плагин \"Woocommerce\""
+
+#: qwqer.php:63
+msgid "Important! Address and city fields in woocommerce settings are required"
+msgstr ""
+"Важно! Поля \"Адрес\" и \"Город\" в настройках woocommerce являются "
+"обязательными"
+
+#: qwqer.php:244
+msgid "Omniva Parcel locker ID"
+msgstr ""
+
+#~ msgid "QWQER Shipping"
+#~ msgstr "Доставка QWQER"
