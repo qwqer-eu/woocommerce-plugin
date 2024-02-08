@@ -5,6 +5,8 @@
 defined('ABSPATH') || exit;
 
 require_once 'settings.php';
+
+add_filter( 'woocommerce_store_api_disable_nonce_check', '__return_true' );
 function createOrder($order_id)
 {
     $response = new WC_Qwqer_Shipping_Method();
@@ -66,10 +68,6 @@ function createOrder($order_id)
         $real_type = 'ExpressDelivery';
     }
 
-    if($shipping_method_title == $shipping_title_omnivaParcelTerminal) {
-        $real_type = 'OmnivaParcelTerminal';
-    }
-
     if($shipping_method_id == 'qwqer_shipping_method') {
         /*
          * Get store coordinates and address
@@ -103,7 +101,7 @@ function createOrder($order_id)
 
         $clientOwnerAddress["name"] = $name;
         $clientOwnerAddress["phone"] = $phone;
-        if($shipping_method_title == $shipping_title_scheduledDelivery || $shipping_method_title == $shipping_title_expressDelivery) {
+        if($shipping_method_title == $shipping_title_scheduledDelivery) {
             $data_order = array(
                 'type' => 'Regular',
                 'category' => $category,
@@ -112,7 +110,17 @@ function createOrder($order_id)
                 'destinations' => [$clientOwnerAddress],
             );
         }
-        if($shipping_method_title == $shipping_title_omnivaParcelTerminal) {
+        if($shipping_method_title == $shipping_title_expressDelivery) {
+            $data_order = array(
+                'type' => 'Regular',
+                'category' => $category,
+                'real_type' => $real_type,
+                'origin' => $storeOwnerAddress,
+                'destinations' => [$clientOwnerAddress],
+            );
+        }
+        $terminal_name = $shipping_title_omnivaParcelTerminal . ' : ' . $name_terminal;
+        if($shipping_method_title == $terminal_name) {
             $data_info_terminal = [
                 "name" => $name,
                 "phone" => $phone,
@@ -125,7 +133,7 @@ function createOrder($order_id)
             $data_order = array(
                 'type' => 'Regular',
                 'category' => $category,
-                'real_type' => $real_type,
+                'real_type' => 'OmnivaParcelTerminal',
                 'origin' => $storeOwnerAddress,
                 'destinations' => [$data_info_terminal],
                 'parcel_size' => 'L'

@@ -4,7 +4,7 @@ Tags: qwqer, qwqer delivery for woocommerce, wordpress, delivery, woocommerce
 Requires at least: 5.5
 Tested up to: 6.2.2
 Requires PHP: 7.4 - 8.1
-Stable tag: 1.2
+Stable tag: 1.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

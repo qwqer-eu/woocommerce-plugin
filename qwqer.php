@@ -3,7 +3,7 @@
  * Plugin Name: QWQER Shipping for Woocommerce
  * Plugin URI: https://qwqer.lv/
  * Description: Express Delivery for Woocommerce
- * Version: 1.2
+ * Version: 1.2.2
  * Author: QWQER
  * Author URI: https://qwqer.lv/
  * License: GPLv3
