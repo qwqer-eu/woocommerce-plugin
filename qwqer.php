@@ -95,23 +95,6 @@ if (in_array('woocommerce/woocommerce.php', $active_plugins)) {
 }
 
 /*
- * Clear form checkout
- */
-function ClearCheckoutForm()
-{
-    if (is_checkout()) { ?>
-        <script type="text/javascript">
-            ( function( $ ) {
-                $('form.checkout').each(function() {
-                    $('form.checkout').find('input').val('');
-                });
-            }( jQuery ) );
-        </script>
-    <?php }
-}
-add_action( 'wp_footer', 'ClearCheckoutForm' );
-
-/*
  * Select terminals
  */
 function qwqer_app_scripts()

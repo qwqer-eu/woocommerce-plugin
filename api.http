@@ -1,0 +1,295 @@
+### QWQER API Test Calls for VS Code REST Client
+### Base configuration using file variables
+### Replace YOUR_API_TOKEN and YOUR_TRADING_POINT_ID with actual values
+
+@baseUrl = https://api.qwqer.lv
+@token = 1ikog7EOv4xjgrACnumquOl14AtqbfEk9WKgKiu5
+@tradingPointId = 1
+@contentType = application/x-www-form-urlencoded
+@acceptJson = application/json
+
+### Test coordinates for Riga locations
+@shopAddress = Brivibas iela 1, Riga
+@shopCoordinatesLng = 24.113388
+@shopCoordinatesLat = 56.950924
+@customerAddress = Gertrudes iela 10, Riga
+@customerCoordinatesLng = 24.120749
+@customerCoordinatesLat = 56.957130
+
+### Terminal test data
+@terminalName = Omniva Maxima X
+@terminalLng = 24.0729
+@terminalLat = 56.9449
+
+### Contact information
+@shopName = Test Shop
+@shopPhone = %2B37120000000
+@customerName = John Doe
+@customerPhone = %2B37129999999
+
+###
+# @name getCoordinates
+# Get coordinates for an address (Geocoding)
+POST {{baseUrl}}/v1/plugins/woocommerce/places/geocode HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+address={{shopAddress}}
+
+###
+# @name getTerminals
+# Get list of all Omniva parcel terminals
+GET {{baseUrl}}/v1/plugins/woocommerce/parcel-machines HTTP/1.1
+Authorization: Bearer {{token}}
+Accept: {{acceptJson}}
+
+###
+# @name getPriceScheduled
+# Get delivery price for Scheduled Delivery
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=ScheduledDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name getPriceExpress
+# Get delivery price for Express Delivery
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=ExpressDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name getPriceTerminal
+# Get delivery price for Omniva Parcel Terminal
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=OmnivaParcelTerminal
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{terminalName}}
+&destinations[0][coordinates][0]={{terminalLng}}
+&destinations[0][coordinates][1]={{terminalLat}}
+&destinations[0][country]=LV
+&destinations[0][city]=Rīga
+&parcel_size=L
+
+###
+# @name createOrderScheduled
+# Create a Scheduled Delivery order
+# @note This will create a real order - use with caution!
+POST {{baseUrl}}/v1/clients/auth/trading-points/{{tradingPointId}}/delivery-orders HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=ScheduledDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name createOrderExpress
+# Create an Express Delivery order
+# @note This will create a real order - use with caution!
+POST {{baseUrl}}/v1/clients/auth/trading-points/{{tradingPointId}}/delivery-orders HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=ExpressDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name createOrderTerminal
+# Create an Omniva Parcel Terminal order
+# @note This will create a real order - use with caution!
+POST {{baseUrl}}/v1/clients/auth/trading-points/{{tradingPointId}}/delivery-orders HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=OmnivaParcelTerminal
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+&destinations[0][address]={{terminalName}}
+&destinations[0][coordinates][0]={{terminalLng}}
+&destinations[0][coordinates][1]={{terminalLat}}
+&destinations[0][country]=LV
+&destinations[0][city]=Rīga
+&parcel_size=L
+
+### TESTING DIFFERENT PRODUCT CATEGORIES
+### Available: Other, Flowers, Food, Electronics, Cake, Present, Clothes, Document, Jewelry
+
+###
+# @name getPriceElectronics
+# Test pricing for Electronics category
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Electronics
+&real_type=ExpressDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name getPriceFood
+# Test pricing for Food category
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Food
+&real_type=ScheduledDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+###
+# @name getPriceFlowers
+# Test pricing for Flowers category with Express delivery
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Flowers
+&real_type=ExpressDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]={{customerAddress}}
+&destinations[0][coordinates][0]={{customerCoordinatesLng}}
+&destinations[0][coordinates][1]={{customerCoordinatesLat}}
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+### ERROR TESTING - Testing delivery area limits
+
+###
+# @name testOutOfAreaDelivery
+# Test delivery to location outside service area (should return error)
+POST {{baseUrl}}/v1/plugins/woocommerce/clients/auth/trading-points/{{tradingPointId}}/delivery-orders/get-price HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+type=Regular
+&category=Other
+&real_type=ExpressDelivery
+&origin[address]={{shopAddress}}
+&origin[coordinates][0]={{shopCoordinatesLng}}
+&origin[coordinates][1]={{shopCoordinatesLat}}
+&origin[name]={{shopName}}
+&origin[phone]={{shopPhone}}
+&destinations[0][address]=Liepaja, Latvia
+&destinations[0][coordinates][0]=21.0109
+&destinations[0][coordinates][1]=56.5047
+&destinations[0][name]={{customerName}}
+&destinations[0][phone]={{customerPhone}}
+
+### USING REQUEST VARIABLES - Chain requests using response data
+
+###
+# @name loginExample
+# Example: If QWQER had a login endpoint (hypothetical)
+# POST {{baseUrl}}/auth/login HTTP/1.1
+# Content-Type: {{contentType}}
+# 
+# username=testuser&password=testpass
+
+###
+# Example of using response from previous request
+# @authToken = {{loginExample.response.headers.Authorization}}
+# GET {{baseUrl}}/some-protected-endpoint HTTP/1.1
+# Authorization: {{authToken}}
+
+### ENVIRONMENT-SPECIFIC VARIABLES
+### You can set these in VS Code settings:
+### "rest-client.environmentVariables": {
+###     "production": {
+###         "token": "PRODUCTION_TOKEN",
+###         "tradingPointId": "PRODUCTION_TRADING_POINT_ID"
+###     },
+###     "development": {
+###         "token": "DEV_TOKEN",
+###         "tradingPointId": "DEV_TRADING_POINT_ID"
+###     }
+### }

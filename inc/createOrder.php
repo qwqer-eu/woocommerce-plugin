@@ -13,7 +13,7 @@ function createOrder($order_id)
     /*
      * static data
      */
-    $api_url = 'https://qwqer.lv/api/';
+    $api_url = 'https://api.qwqer.lv/';
     $api_coordinates_url = 'v1/places/geocode';
     $api_order_url = "v1/clients/auth/trading-points/{trading-point-id}/delivery-orders";
 
